@@ -1,0 +1,58 @@
+export const notes = [
+  {
+    id: 1,
+    name: "Shopping list",
+    timeOfCreation: "2023-07-25T12:00:00Z",
+    category: "Task",
+    noteContent: "Tomatoes, bread",
+    datesMentioned: "",
+    archived: false,
+  },
+  {
+    id: 2,
+    name: "The theory of evolution",
+    timeOfCreation: "2023-07-25T12:00:00Z",
+    category: "Random Thought",
+    noteContent:
+      "In biology, evolution is the change in the characteristics of a species over several generations and relies on the process of natural selection.",
+    datesMentioned: "",
+    archived: false,
+  },
+  {
+    id: 3,
+    name: "New Feauture",
+    timeOfCreation: "2023-07-25T12:00:00Z",
+    category: "Idea",
+    noteContent: "Implement new feautures to my application",
+    datesMentioned: "",
+    archived: false,
+  },
+  {
+    id: 3,
+    name: "William Gaddis",
+    timeOfCreation: "2023-07-25T12:00:00Z",
+    category: "Quote",
+    noteContent: "Power does not corrupt people; people corrupt power.",
+    datesMentioned: "",
+    archived: false,
+  },
+  {
+    id: 4,
+    name: "Books",
+    timeOfCreation: "2023-07-25T12:00:00Z",
+    category: "Task",
+    noteContent: "Read David Flanagan 'JavaScript: The Definitive Guide'",
+    datesMentioned: "",
+    archived: false,
+  },
+  {
+    id: 4,
+    name: "Dantist",
+    timeOfCreation: "2023-07-25T12:00:00Z",
+    category: "Task",
+    noteContent:
+      "I/’m gonna have a dentist appointment on the 3/5/2021, I moved it from 5/5/2021",
+    datesMentioned: "",
+    archived: false,
+  },
+];
