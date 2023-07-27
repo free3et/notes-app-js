@@ -25,3 +25,11 @@ th {
 button {
   margin-right: 5px;
 }
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
