@@ -1,58 +1,47 @@
-import { notes } from "./data/notesData";
+import { loadArchivedNotesFromLocalStorage } from "./helpers/notesStorage";
+import { formatDate } from "./helpers/formatDate";
+import { extractDatesFromText } from "./helpers/extractDatesFromText";
+import { unarchiveNote } from "./actionsOnNotes/unarchiveNote";
 
-export function showSummaryTable() {
-  const archivedNotesTableBody = document.querySelector(
+export function showArchivedTable() {
+  let archiveNotes = loadArchivedNotesFromLocalStorage();
+
+  const archiveNotesTableBody = document.querySelector(
     "#archivedNotesTable tbody"
   );
-  const activeTaskCount = document.querySelector(".activeTaskCount");
-  const archivedTaskCount = document.querySelector(".archivedTaskCount");
-  const randomThoughtActiveCount = document.querySelector(
-    ".randomThoughtActiveCount"
+
+  archiveNotesTableBody.innerHTML = "";
+
+  const sortedData = archiveNotes.sort(
+    (a, b) => a.timeOfCreation - b.timeOfCreation
   );
-  const randomThoughtArchivedCount = document.querySelector(
-    ".randomThoughtArchivedCount"
-  );
-  const ideaActiveCount = document.querySelector(".ideaActiveCount");
-  const ideaArchivedCount = document.querySelector(".ideaArchivedCount");
 
-  // Clear the tables
-  archivedNotesTableBody.innerHTML = "";
+  sortedData?.forEach((note) => {
+    const { id, name, timeOfCreation, category, noteContent } = note;
+    const creationDate = formatDate(timeOfCreation);
 
-  // Initialize category counts
-  let taskActive = 0;
-  let taskArchived = 0;
-  let randomThoughtActive = 0;
-  let randomThoughtArchived = 0;
-  let ideaActive = 0;
-  let ideaArchived = 0;
+    const tableRow = `
+      <tr>
+      <td class='note-title'>${name}</td>
+        <td class='note-created'>${creationDate}</td>
+        <td class='note-category'>${category}</td>
+        <td class='note-description'>${noteContent}</td>
+        <td class='note-dates'>${extractDatesFromText(noteContent)}</td>
+        <td>
+          <button onclick="unarchiveNote(${id})" class="unarchiveBtn">Unarchive</button>
+        </td>
+      </tr>
+    `;
 
-  notes.forEach((note) => {
-    const { category, archived } = note;
+    archiveNotesTableBody.innerHTML += tableRow;
 
-    if (archived) {
-      if (category === "Task") {
-        taskArchived++;
-      } else if (category === "Random Thought") {
-        randomThoughtArchived++;
-      } else if (category === "Idea") {
-        ideaArchived++;
-      }
-    } else {
-      if (category === "Task") {
-        taskActive++;
-      } else if (category === "Random Thought") {
-        randomThoughtActive++;
-      } else if (category === "Idea") {
-        ideaActive++;
-      }
-    }
+    const unarchiveBtns = document.querySelectorAll(".unarchiveBtn");
+
+    unarchiveBtns?.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const noteId = parseInt(btn.getAttribute("onclick").match(/\d+/)[0]);
+        unarchiveNote(noteId);
+      });
+    });
   });
-
-  // Update summary table
-  activeTaskCount.textContent = taskActive;
-  archivedTaskCount.textContent = taskArchived;
-  randomThoughtActiveCount.textContent = randomThoughtActive;
-  randomThoughtArchivedCount.textContent = randomThoughtArchived;
-  ideaActiveCount.textContent = ideaActive;
-  ideaArchivedCount.textContent = ideaArchived;
 }

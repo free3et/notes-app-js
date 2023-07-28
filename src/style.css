@@ -59,3 +59,11 @@ button {
 .popup.active {
   display: block;
 }
+
+#archivedNotesTable {
+  display: none;
+}
+
+#archivedNotesTable.show{
+  display: block;
+}

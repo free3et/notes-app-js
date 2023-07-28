@@ -6,6 +6,7 @@ import {
   loadArchivedNotesFromLocalStorage,
 } from "../helpers/notesStorage";
 import { showSummaryTable } from "../showSummaryTable";
+import { showArchivedTable } from "../showArchivedTable";
 
 export function archiveNote(id) {
   let notes = loadNotesFromLocalStorage();
@@ -23,5 +24,6 @@ export function archiveNote(id) {
 
     showAllNotes(notes);
     showSummaryTable();
+    showArchivedTable();
   }
 }

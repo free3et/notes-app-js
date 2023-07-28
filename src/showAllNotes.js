@@ -9,7 +9,9 @@ export function showAllNotes(data) {
 
   notesTableBody.innerHTML = "";
 
-  data?.forEach((note) => {
+  const sortedData = data.sort((a, b) => a.timeOfCreation - b.timeOfCreation);
+
+  sortedData?.forEach((note) => {
     const { id, name, timeOfCreation, category, noteContent } = note;
     const creationDate = formatDate(timeOfCreation);
 
@@ -21,9 +23,9 @@ export function showAllNotes(data) {
         <td class='note-description'>${noteContent}</td>
         <td class='note-dates'>${extractDatesFromText(noteContent)}</td>
         <td>
-          <button onclick="openEditNotePopup(${id}, '${name}', '${noteContent}')" class="editBtn">Edit</button>
-          <button onclick="archiveNote(${id})" class="archiveBtn">Archive</button>
-          <button onclick="deleteNote(${id})" class="deleteBtn">Remove</button>
+          <button onclick="${id}" class="editBtn">Edit</button>
+          <button onclick="${id}" class="archiveBtn">Archive</button>
+          <button onclick="${id}" class="deleteBtn">Remove</button>
         </td>
       </tr>
     `;
