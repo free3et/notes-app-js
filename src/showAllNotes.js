@@ -2,6 +2,7 @@ import { formatDate } from "./helpers/formatDate";
 import { extractDatesFromText } from "./helpers/extractDatesFromText";
 import { deleteNote } from "./actionsOnNotes/deleteNote";
 import { openEditNotePopup } from "./helpers/openEditNotePopup";
+import { archiveNote } from "./actionsOnNotes/archiveNote";
 
 export function showAllNotes(data) {
   const notesTableBody = document.querySelector("#allNotesTable tbody");
@@ -30,7 +31,7 @@ export function showAllNotes(data) {
         <td>${extractDatesFromText(noteContent)}</td>
         <td>
           <button onclick="openEditNotePopup(${id}, '${name}', '${noteContent}')" class="editBtn">Edit</button>
-          <button onclick="archiveNote(${id})">Archive</button>
+          <button onclick="archiveNote(${id})" class="archiveBtn">Archive</button>
           <button onclick="deleteNote(${id})" class="deleteBtn">Remove</button>
         </td>
       </tr>
@@ -40,6 +41,7 @@ export function showAllNotes(data) {
 
     const deleteNoteBtns = document.querySelectorAll(".deleteBtn");
     const editeNoteBtns = document.querySelectorAll(".editBtn");
+    const archiveNoteBtns = document.querySelectorAll(".archiveBtn");
 
     deleteNoteBtns?.forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -56,6 +58,13 @@ export function showAllNotes(data) {
         const noteContent =
           noteRow.querySelector("td:nth-child(4)").textContent;
         openEditNotePopup(noteId, noteTitle, noteContent);
+      });
+    });
+
+    archiveNoteBtns?.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const noteId = parseInt(btn.getAttribute("onclick").match(/\d+/)[0]);
+        archiveNote(noteId);
       });
     });
   });
