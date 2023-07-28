@@ -1,5 +1,5 @@
 import { extractDatesFromText } from "../helpers/extractDatesFromText";
-import { notes } from "../data/notesData";
+import { showSummaryTable } from "../showSummaryTable";
 import { showAllNotes } from "../showAllNotes";
 import {
   saveNotesToLocalStorage,
@@ -25,5 +25,7 @@ export function addNote() {
 
   saveNotesToLocalStorage(notes);
   showAllNotes(notes);
+  showSummaryTable();
+
   document.getElementById("newNoteForm").reset();
 }

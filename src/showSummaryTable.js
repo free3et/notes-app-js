@@ -1,58 +1,56 @@
-import { notes } from "./data/notesData";
+import {
+  loadNotesFromLocalStorage,
+  loadArchivedNotesFromLocalStorage,
+} from "./helpers/notesStorage";
 
 export function showSummaryTable() {
-  const archivedNotesTableBody = document.querySelector(
-    "#archivedNotesTable tbody"
-  );
-  const activeTaskCount = document.querySelector(".activeTaskCount");
-  const archivedTaskCount = document.querySelector(".archivedTaskCount");
-  const randomThoughtActiveCount = document.querySelector(
-    ".randomThoughtActiveCount"
-  );
-  const randomThoughtArchivedCount = document.querySelector(
-    ".randomThoughtArchivedCount"
-  );
-  const ideaActiveCount = document.querySelector(".ideaActiveCount");
-  const ideaArchivedCount = document.querySelector(".ideaArchivedCount");
+  let activeNotes = loadNotesFromLocalStorage();
+  let archiveNotes = loadArchivedNotesFromLocalStorage();
 
-  // Clear the tables
-  archivedNotesTableBody.innerHTML = "";
+  const categoryElements = {
+    Task: {
+      active: document.querySelector(".activeTaskCount"),
+      archived: document.querySelector(".archivedTaskCount"),
+    },
+    "Random Thought": {
+      active: document.querySelector(".randomThoughtActiveCount"),
+      archived: document.querySelector(".randomThoughtArchivedCount"),
+    },
+    Idea: {
+      active: document.querySelector(".ideaActiveCount"),
+      archived: document.querySelector(".ideaArchivedCount"),
+    },
+    Quote: {
+      active: document.querySelector(".quoteActiveCount"),
+      archived: document.querySelector(".quoteArchivedCount"),
+    },
+  };
 
-  // Initialize category counts
-  let taskActive = 0;
-  let taskArchived = 0;
-  let randomThoughtActive = 0;
-  let randomThoughtArchived = 0;
-  let ideaActive = 0;
-  let ideaArchived = 0;
+  const categoryCounts = {
+    Task: { active: 0, archived: 0 },
+    "Random Thought": { active: 0, archived: 0 },
+    Idea: { active: 0, archived: 0 },
+    Quote: { active: 0, archived: 0 },
+  };
 
-  notes.forEach((note) => {
+  activeNotes.forEach((note) => {
+    const { category } = note;
+    categoryCounts[category].active++;
+  });
+
+  archiveNotes.forEach((note) => {
     const { category, archived } = note;
-
     if (archived) {
-      if (category === "Task") {
-        taskArchived++;
-      } else if (category === "Random Thought") {
-        randomThoughtArchived++;
-      } else if (category === "Idea") {
-        ideaArchived++;
-      }
-    } else {
-      if (category === "Task") {
-        taskActive++;
-      } else if (category === "Random Thought") {
-        randomThoughtActive++;
-      } else if (category === "Idea") {
-        ideaActive++;
-      }
+      categoryCounts[category].archived++;
     }
   });
 
-  // Update summary table
-  activeTaskCount.textContent = taskActive;
-  archivedTaskCount.textContent = taskArchived;
-  randomThoughtActiveCount.textContent = randomThoughtActive;
-  randomThoughtArchivedCount.textContent = randomThoughtArchived;
-  ideaActiveCount.textContent = ideaActive;
-  ideaArchivedCount.textContent = ideaArchived;
+  for (const category in categoryCounts) {
+    const { active, archived } = categoryCounts[category];
+    const { active: activeElement, archived: archivedElement } =
+      categoryElements[category];
+
+    activeElement.textContent = active;
+    archivedElement.textContent = archived;
+  }
 }
