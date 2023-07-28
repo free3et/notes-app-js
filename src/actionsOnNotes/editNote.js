@@ -1,1 +1,19 @@
-export function editNote(id) {}
+import { showAllNotes } from "../showAllNotes";
+import {
+  saveNotesToLocalStorage,
+  loadNotesFromLocalStorage,
+} from "../helpers/notesStorage";
+
+export function editNote(id, updatedTitle, updatedDescription) {
+  let notes = loadNotesFromLocalStorage();
+  const index = notes.findIndex((note) => note.id === id);
+
+  if (index !== -1) {
+    notes[index].name = updatedTitle;
+    notes[index].noteContent = updatedDescription;
+    (notes[index].timeOfCreation = new Date().toISOString()),
+      saveNotesToLocalStorage(notes);
+  }
+
+  showAllNotes(notes);
+}

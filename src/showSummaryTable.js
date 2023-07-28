@@ -4,16 +4,16 @@ export function showSummaryTable() {
   const archivedNotesTableBody = document.querySelector(
     "#archivedNotesTable tbody"
   );
-  const activeTaskCount = document.getElementById("activeTaskCount");
-  const archivedTaskCount = document.getElementById("archivedTaskCount");
-  const randomThoughtActiveCount = document.getElementById(
-    "randomThoughtActiveCount"
+  const activeTaskCount = document.querySelector(".activeTaskCount");
+  const archivedTaskCount = document.querySelector(".archivedTaskCount");
+  const randomThoughtActiveCount = document.querySelector(
+    ".randomThoughtActiveCount"
   );
-  const randomThoughtArchivedCount = document.getElementById(
-    "randomThoughtArchivedCount"
+  const randomThoughtArchivedCount = document.querySelector(
+    ".randomThoughtArchivedCount"
   );
-  const ideaActiveCount = document.getElementById("ideaActiveCount");
-  const ideaArchivedCount = document.getElementById("ideaArchivedCount");
+  const ideaActiveCount = document.querySelector(".ideaActiveCount");
+  const ideaArchivedCount = document.querySelector(".ideaArchivedCount");
 
   // Clear the tables
   archivedNotesTableBody.innerHTML = "";

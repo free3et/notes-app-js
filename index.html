@@ -26,7 +26,7 @@
       </tbody>
     </table>
 
-    <button type="button" id="addNewNote">Create note</button>
+    <button type="button" class="addNewNote">Create note</button>
     <form id="newNoteForm" class="hide">
       <label for="noteTitle">Note Title:</label>
       <input type="text" id="noteTitle" required>
@@ -44,6 +44,17 @@
       <button type="submit">Add Note</button>
     </form>
 
+    <!-- Popup for editing note -->
+    <div id="editNotePopup" class="popup">
+      <div class="popup-content">
+        <h2>Edit Note</h2>
+        <input type="text" class="editNoteTitle" placeholder="Title">
+        <textarea class="editNoteDescription" placeholder="Description"></textarea>
+        <button class="saveNoteChangesBtn">Save</button>
+        <button class="closeEditNotePopupBtn">Cancel</button>
+      </div>
+    </div>
+
     <h2>Summary Table</h2>
     <table id="summaryTable">
       <thead>
@@ -56,18 +67,18 @@
       <tbody>
         <tr>
           <td>Task</td>
-          <td id="activeTaskCount">0</td>
-          <td id="archivedTaskCount">0</td>
+          <td class="activeTaskCount">0</td>
+          <td class="archivedTaskCount">0</td>
         </tr>
         <tr>
           <td>Random Thought</td>
-          <td id="randomThoughtActiveCount">0</td>
-          <td id="randomThoughtArchivedCount">0</td>
+          <td class="randomThoughtActiveCount">0</td>
+          <td class="randomThoughtArchivedCount">0</td>
         </tr>
         <tr>
           <td>Idea</td>
-          <td id="ideaActiveCount">0</td>
-          <td id="ideaArchivedCount">0</td>
+          <td class="ideaActiveCount">0</td>
+          <td class="ideaArchivedCount">0</td>
         </tr>
       </tbody>
     </table>

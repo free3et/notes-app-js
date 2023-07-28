@@ -6,7 +6,7 @@ import { archiveNote } from "./actionsOnNotes/archiveNote";
 import { unarchiveNote } from "./actionsOnNotes/unarchiveNote";
 import { loadNotesFromLocalStorage } from "./helpers/notesStorage";
 
-const createNoteBtn = document.querySelector("#addNewNote");
+const createNoteBtn = document.querySelector(".addNewNote");
 const newNoteForm = document.querySelector("#newNoteForm");
 const notesTableBody = document.querySelector("#allNotesTable");
 let notes = loadNotesFromLocalStorage();
