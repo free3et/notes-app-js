@@ -3,6 +3,7 @@ import {
   saveNotesToLocalStorage,
   loadNotesFromLocalStorage,
 } from "../helpers/notesStorage";
+import { showSummaryTable } from "../showSummaryTable";
 
 export function deleteNote(id) {
   let notes = loadNotesFromLocalStorage();
@@ -10,4 +11,5 @@ export function deleteNote(id) {
 
   saveNotesToLocalStorage(notes);
   showAllNotes(notes);
+  showSummaryTable();
 }

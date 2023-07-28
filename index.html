@@ -11,6 +11,7 @@
 <body>
   <div id="app">
     <h2>Notes App</h2>
+    <!-- All notes table -->
     <table id="allNotesTable">
       <thead>
         <tr>
@@ -26,6 +27,7 @@
       </tbody>
     </table>
 
+    <!-- Add new note form -->
     <button type="button" class="addNewNote">Create note</button>
     <form id="newNoteForm" class="hide">
       <label for="noteTitle">Note Title:</label>
@@ -56,6 +58,7 @@
     </div>
 
     <h2>Summary Table</h2>
+    <!-- Active and archived table -->
     <table id="summaryTable">
       <thead>
         <tr>
@@ -79,6 +82,11 @@
           <td>Idea</td>
           <td class="ideaActiveCount">0</td>
           <td class="ideaArchivedCount">0</td>
+        </tr>
+        <tr>
+          <td>Quote</td>
+          <td class="quoteActiveCount">0</td>
+          <td class="quoteArchivedCount">0</td>
         </tr>
       </tbody>
     </table>
