@@ -1,4 +1,4 @@
-export const notes = [
+export let notes = [
   {
     id: 1,
     name: "Shopping list",
@@ -28,7 +28,7 @@ export const notes = [
     archived: false,
   },
   {
-    id: 3,
+    id: 4,
     name: "William Gaddis",
     timeOfCreation: "2023-07-25T12:00:00Z",
     category: "Quote",
@@ -37,7 +37,17 @@ export const notes = [
     archived: false,
   },
   {
-    id: 4,
+    id: 5,
+    name: "Tattoo",
+    timeOfCreation: "2023-07-25T12:00:00Z",
+    category: "Task",
+    noteContent:
+      "I am going to make an appointment with a tattoo artist on 04/06/2023, I postponed it from 05/16/2023",
+    datesMentioned: "",
+    archived: false,
+  },
+  {
+    id: 6,
     name: "Books",
     timeOfCreation: "2023-07-25T12:00:00Z",
     category: "Task",
@@ -46,12 +56,12 @@ export const notes = [
     archived: false,
   },
   {
-    id: 4,
+    id: 7,
     name: "Dantist",
     timeOfCreation: "2023-07-25T12:00:00Z",
     category: "Task",
     noteContent:
-      "I/’m gonna have a dentist appointment on the 3/5/2021, I moved it from 5/5/2021",
+      "I/’m gonna have a dentist appointment on the 3/5/2023, I moved it from 5/5/2023",
     datesMentioned: "",
     archived: false,
   },

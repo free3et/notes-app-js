@@ -1,14 +1,15 @@
 import { showAllNotes } from "./showAllNotes";
 import { showSummaryTable } from "./showSummaryTable";
-import { notes } from "./data/notesData";
 import { addNote } from "./actionsOnNotes/addNote";
 import { editNote } from "./actionsOnNotes/editNote";
-import { deleteNote } from "./actionsOnNotes/deleteNote";
 import { archiveNote } from "./actionsOnNotes/archiveNote";
 import { unarchiveNote } from "./actionsOnNotes/unarchiveNote";
+import { loadNotesFromLocalStorage } from "./helpers/notesStorage";
 
 const createNoteBtn = document.querySelector("#addNewNote");
 const newNoteForm = document.querySelector("#newNoteForm");
+const notesTableBody = document.querySelector("#allNotesTable");
+let notes = loadNotesFromLocalStorage();
 
 function showAddNewNoteForm() {
   newNoteForm.classList.toggle("show");
@@ -16,13 +17,13 @@ function showAddNewNoteForm() {
   createNoteBtn.innerText = "Hide new note form";
 }
 
-// Display notes on initial page load
-window.addEventListener("load", showAllNotes);
-window.addEventListener("load", showSummaryTable);
-createNoteBtn.addEventListener("click", showAddNewNoteForm);
-
-// Handle form submission
-document.getElementById("newNoteForm").addEventListener("submit", (event) => {
-  event.preventDefault();
-  addNote();
+// Event listeners
+window.addEventListener("load", () => {
+  showAllNotes(notes);
+  showSummaryTable();
+  createNoteBtn.addEventListener("click", showAddNewNoteForm);
+  newNoteForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    addNote();
+  });
 });

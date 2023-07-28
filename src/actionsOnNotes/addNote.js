@@ -1,6 +1,10 @@
 import { extractDatesFromText } from "../helpers/extractDatesFromText";
 import { notes } from "../data/notesData";
 import { showAllNotes } from "../showAllNotes";
+import {
+  saveNotesToLocalStorage,
+  loadNotesFromLocalStorage,
+} from "../helpers/notesStorage";
 
 export function addNote() {
   const noteTitle = document.getElementById("noteTitle").value;
@@ -16,7 +20,10 @@ export function addNote() {
     archived: false,
   };
 
+  let notes = loadNotesFromLocalStorage();
   notes.push(newNote);
-  showAllNotes();
+
+  saveNotesToLocalStorage(notes);
+  showAllNotes(notes);
   document.getElementById("newNoteForm").reset();
 }
