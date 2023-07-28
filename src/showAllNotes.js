@@ -1,7 +1,7 @@
-import { notes } from "./data/notesData";
 import { formatDate } from "./helpers/formatDate";
 import { extractDatesFromText } from "./helpers/extractDatesFromText";
 import { deleteNote } from "./actionsOnNotes/deleteNote";
+import { openEditNotePopup } from "./helpers/openEditNotePopup";
 
 export function showAllNotes(data) {
   const notesTableBody = document.querySelector("#allNotesTable tbody");
@@ -29,21 +29,34 @@ export function showAllNotes(data) {
         <td>${noteContent}</td>
         <td>${extractDatesFromText(noteContent)}</td>
         <td>
-          <button onclick="editNote(${id})">Edit</button>
+          <button onclick="openEditNotePopup(${id}, '${name}', '${noteContent}')" class="editBtn">Edit</button>
           <button onclick="archiveNote(${id})">Archive</button>
-          <button onclick="${id}" class="deleteBtn">Remove</button>
+          <button onclick="deleteNote(${id})" class="deleteBtn">Remove</button>
         </td>
       </tr>
     `;
 
     notesTableBody.innerHTML += tableRow;
-  });
 
-  const deleteNoteBtns = document.querySelectorAll(".deleteBtn");
-  deleteNoteBtns?.forEach((button) => {
-    button?.addEventListener("click", () => {
-      const noteId = parseInt(button.getAttribute("onclick").match(/\d+/)[0]);
-      deleteNote(noteId);
+    const deleteNoteBtns = document.querySelectorAll(".deleteBtn");
+    const editeNoteBtns = document.querySelectorAll(".editBtn");
+
+    deleteNoteBtns?.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const noteId = parseInt(btn.getAttribute("onclick").match(/\d+/)[0]);
+        deleteNote(noteId);
+      });
+    });
+
+    editeNoteBtns?.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const noteId = parseInt(btn.getAttribute("onclick").match(/\d+/)[0]);
+        const noteRow = e.target.closest("tr");
+        const noteTitle = noteRow.querySelector("td:nth-child(1)").textContent;
+        const noteContent =
+          noteRow.querySelector("td:nth-child(4)").textContent;
+        openEditNotePopup(noteId, noteTitle, noteContent);
+      });
     });
   });
 }
