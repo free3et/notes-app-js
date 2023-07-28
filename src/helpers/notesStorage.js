@@ -9,13 +9,23 @@ function saveArchiveNotesToLocalStorage(item) {
 }
 
 function loadNotesFromLocalStorage() {
-  const savedNotes = localStorage.getItem("active-notes");
-  return savedNotes ? JSON.parse(savedNotes) : notes;
+  try {
+    const savedNotes = localStorage.getItem("active-notes");
+    return savedNotes ? JSON.parse(savedNotes) : notes;
+  } catch (error) {
+    console.error("Error parsing notes from Local Storage:", error);
+    return [];
+  }
 }
 
 function loadArchivedNotesFromLocalStorage() {
-  const archivedNotes = localStorage.getItem("archive-notes");
-  return archivedNotes ? JSON.parse(archivedNotes) : [];
+  try {
+    const archivedNotes = localStorage.getItem("archive-notes");
+    return archivedNotes ? JSON.parse(archivedNotes) : [];
+  } catch (error) {
+    console.error("Error parsing archive notes from Local Storage:", error);
+    return [];
+  }
 }
 
 export {
