@@ -1,6 +1,6 @@
 import { editNote } from "../actionsOnNotes/editNote";
 
-export function openEditNotePopup(id, name, noteContent) {
+export function editNoteModal(id, name, noteContent, category) {
   const editNotePopup = document.querySelector("#editNotePopup");
   const editNoteTitleInput = document.querySelector(".editNoteTitle");
   const editNoteDescriptionInput = document.querySelector(
@@ -10,19 +10,19 @@ export function openEditNotePopup(id, name, noteContent) {
   const closeEditNotePopupBtn = document.querySelector(
     ".closeEditNotePopupBtn"
   );
+  const editNoteCategory = document.querySelector("#editNoteCategory");
+  editNotePopup.classList.add("show");
 
   editNoteTitleInput.value = name;
   editNoteDescriptionInput.value = noteContent;
-
-  editNotePopup.classList.add("show");
+  editNoteCategory.value = category;
 
   function saveChanges() {
     const updatedTitle = editNoteTitleInput.value;
     const updatedDescription = editNoteDescriptionInput.value;
+    const updatedCategory = editNoteCategory.value;
 
-    editNote(id, updatedTitle, updatedDescription);
-
-    editNotePopup.classList.remove("show");
+    editNote(id, updatedTitle, updatedDescription, updatedCategory);
   }
 
   saveNoteChangesBtn.addEventListener("click", saveChanges);

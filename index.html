@@ -85,6 +85,13 @@
           <div class="modal-body">
             <input type="text" class="form-control editNoteTitle mb-3" placeholder="Title">
             <textarea class="form-control editNoteDescription" placeholder="Description"></textarea>
+            <label for="editNoteCategory" class="form-label">Category:</label>
+            <select id="editNoteCategory" class="form-control form-select" required>
+              <option value="Task">Task</option>
+              <option value="Random Thought">Random Thought</option>
+              <option value="Idea">Idea</option>
+              <option value="Quote">Quote</option>
+            </select>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary saveNoteChangesBtn">Save</button>

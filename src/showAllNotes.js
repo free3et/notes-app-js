@@ -1,7 +1,7 @@
 import { formatDate } from "./helpers/formatDate";
 import { extractDatesFromText } from "./helpers/extractDatesFromText";
 import { deleteNote } from "./actionsOnNotes/deleteNote";
-import { openEditNotePopup } from "./helpers/openEditNotePopup";
+import { editNoteModal } from "./helpers/editNoteModal";
 import { archiveNote } from "./actionsOnNotes/archiveNote";
 import { addImgToCategory } from "./helpers/showCategoryImg";
 
@@ -59,7 +59,9 @@ export function showAllNotes(data) {
         const noteTitle = noteRow.querySelector(".note-title").textContent;
         const noteContent =
           noteRow.querySelector(".note-description").textContent;
-        openEditNotePopup(noteId, noteTitle, noteContent);
+        const noteCategory =
+          noteRow.querySelector(".note-category").textContent;
+        editNoteModal(noteId, noteTitle, noteContent, noteCategory);
       });
     });
 
