@@ -5,16 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notes App</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 
-<body>
-  <div id="app">
-    <h2>Notes App</h2>
+<body class="bg-light">
+  <div id="app" class="container mt-4">
+    <h2 class="mb-4">Notes App</h2>
     <!-- All notes table -->
-    <table id="allNotesTable">
+    <table id="allNotesTable" class="table table-striped table-secondary table-hover table-borderless">
       <thead>
-        <tr>
+        <tr class="table-dark">
+          <th></th>
           <th>Name</th>
           <th>Created</th>
           <th>Category</th>
@@ -28,43 +31,114 @@
     </table>
 
     <!-- Add new note form -->
-    <button type="button" class="addNewNote">Create note</button>
-    <form id="newNoteForm" class="hide">
-      <label for="noteTitle">Note Title:</label>
-      <input type="text" id="noteTitle" required>
-      <label for="noteDescription">Description:</label>
-      <textarea id="noteDescription" rows="4" cols="50" required></textarea>
-      <br>
-      <label for="category">Category:</label>
-      <select id="category" required>
-        <option value="Task">Task</option>
-        <option value="Random Thought">Random Thought</option>
-        <option value="Idea">Idea</option>
-        <option value="Quote">Quote</option>
-      </select>
-      <br>
-      <button type="submit">Add Note</button>
-    </form>
+    <!--     <div class="container d-flex justify-content-center">
+      <div class="card hide mt-3 border rounded-3 bg-secondary">
+        <div class="card-body">
+          <form id="newNoteForm" class="row g-3">
+            <div>
+              <label for="noteTitle" class="form-label">Note Title:</label>
+              <input type="text" id="noteTitle" class="form-control" required>
+            </div>
+            <div>
+              <label for="category" class="form-label">Category:</label>
+              <select id="category" class="form-control form-select" required>
+                <option value="Task">Task</option>
+                <option value="Random Thought">Random Thought</option>
+                <option value="Idea">Idea</option>
+                <option value="Quote">Quote</option>
+              </select>
+            </div>
+            <div>
+              <label for="noteDescription" class="form-label">Description:</label>
+              <textarea id="noteDescription" rows="4" cols="50" class="form-control" required></textarea>
+            </div>
+
+            <div>
+              <button type="submit" class="btn btn-success">Add Note</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="container d-flex justify-content-center">
+      <!-- Modal -->
+      <div class="modal fade" id="addNoteModal" tabindex="-1" aria-labelledby="addNoteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addNoteModalLabel">Add New Note</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="newNoteForm" class="row g-3">
+                <div>
+                  <label for="noteTitle" class="form-label">Note Title:</label>
+                  <input type="text" id="noteTitle" class="form-control" required>
+                </div>
+                <div>
+                  <label for="category" class="form-label">Category:</label>
+                  <select id="category" class="form-control form-select" required>
+                    <option value="Task">Task</option>
+                    <option value="Random Thought">Random Thought</option>
+                    <option value="Idea">Idea</option>
+                    <option value="Quote">Quote</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="noteDescription" class="form-label">Description:</label>
+                  <textarea id="noteDescription" rows="4" cols="50" class="form-control" required></textarea>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-success">Add Note</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button to trigger the modal -->
+      <button type="button" class="btn btn-success mt-3 addNewNote" data-bs-toggle="modal"
+        data-bs-target="#addNoteModal">
+        Create Note
+      </button>
+    </div>
 
     <!-- Popup for editing note -->
-    <div id="editNotePopup" class="popup">
-      <div class="popup-content">
-        <h2>Edit Note</h2>
-        <input type="text" class="editNoteTitle" placeholder="Title">
-        <textarea class="editNoteDescription" placeholder="Description"></textarea>
-        <button class="saveNoteChangesBtn">Save</button>
-        <button class="closeEditNotePopupBtn">Cancel</button>
+    <div id="editNotePopup" class="modal fade" tabindex="-1" aria-labelledby="editNoteModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="editNoteModalLabel">Edit Note</h4>
+          </div>
+          <div class="modal-body">
+            <input type="text" class="form-control editNoteTitle mb-3" placeholder="Title">
+            <textarea class="form-control editNoteDescription" placeholder="Description"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary saveNoteChangesBtn">Save</button>
+            <button type="button" class="btn btn-secondary closeEditNotePopupBtn"
+              data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
       </div>
     </div>
 
+
     <!-- Active and archived table -->
-    <table id="summaryTable">
+    <table id="summaryTable" class="table mt-4 table-striped table-secondary table-hover caption-top">
       <caption>Summary</caption>
-      <thead>
+      <thead class="table-dark">
         <tr>
           <th>Note Category</th>
           <th>Active</th>
-          <th onclick="showArchiveNotes()" class="archiveNotes">Archived</th>
+          <th onclick="showArchiveNotes()" class="archiveNotes"><a href="#Archived">Archived<img
+                src="./src//assets//lock-icon-grey.png" alt="${category}" class="archive-icon"><span
+                class="badge bg-secondary">click
+                here</span></a></th>
         </tr>
       </thead>
       <tbody>
@@ -91,22 +165,33 @@
       </tbody>
     </table>
 
-    <table id="archivedNotesTable">
-      <caption>Archived Notes</caption>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Created</th>
-          <th>Category</th>
-          <th>Content</th>
-          <th>Dates</th>
-          <th>Unarchive </th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+
+
+    <div class="archivedNotesWrapper">
+      <div class="container d-flex justify-content-center align-items-center">
+        <button type="button" class="btn btn-success mt-3 hideArchiveNote">
+          Hide archive notes
+        </button>
+      </div>
+      <table id="archivedNotesTable" class="table mt-2 table-striped table-primary table-hover caption-top">
+        <caption id="Archived">Archived Notes</caption>
+        <thead class="table-secondary">
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Created</th>
+            <th>Category</th>
+            <th>Content</th>
+            <th>Dates</th>
+            <th>Unarchive</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
   <script type="module" src="/src/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

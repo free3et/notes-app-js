@@ -3,13 +3,16 @@ import { extractDatesFromText } from "./helpers/extractDatesFromText";
 import { deleteNote } from "./actionsOnNotes/deleteNote";
 import { openEditNotePopup } from "./helpers/openEditNotePopup";
 import { archiveNote } from "./actionsOnNotes/archiveNote";
+import { addImgToCategory } from "./helpers/showCategoryImg";
 
 export function showAllNotes(data) {
   const notesTableBody = document.querySelector("#allNotesTable tbody");
 
   notesTableBody.innerHTML = "";
 
-  const sortedData = data.sort((a, b) => a.timeOfCreation - b.timeOfCreation);
+  const sortedData = data.sort((a, b) => {
+    return new Date(a.timeOfCreation) > new Date(b.timeOfCreation) ? -1 : 1;
+  });
 
   sortedData?.forEach((note) => {
     const { id, name, timeOfCreation, category, noteContent } = note;
@@ -17,17 +20,23 @@ export function showAllNotes(data) {
 
     const tableRow = `
       <tr>
+      <td><img src="${addImgToCategory(
+        category
+      )}" alt="${category}" class="category-icon"></td>
       <td class='note-title'>${name}</td>
         <td class='note-created'>${creationDate}</td>
         <td class='note-category'>${category}</td>
         <td class='note-description'>${noteContent}</td>
-        <td class='note-dates'>${extractDatesFromText(noteContent)}</td>
-        <td>
-          <button onclick="${id}" class="editBtn">Edit</button>
-          <button onclick="${id}" class="archiveBtn">Archive</button>
-          <button onclick="${id}" class="deleteBtn">Remove</button>
+        <td class='note-dates'><span>${extractDatesFromText(
+          noteContent
+        )}</span></td>
+        <td class='actions'>
+          <button onclick="${id}" class="editBtn btn btn-outline-success btn-sm m-1">Edit</button>
+          <button onclick="${id}" class="archiveBtn btn btn-outline-primary btn-sm m-1">Archive</button>
+          <button onclick="${id}" class="deleteBtn btn btn-outline-dark btn-sm m-1">Remove</button>
         </td>
       </tr>
+
     `;
 
     notesTableBody.innerHTML += tableRow;

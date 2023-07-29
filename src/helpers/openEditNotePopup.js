@@ -14,7 +14,7 @@ export function openEditNotePopup(id, name, noteContent) {
   editNoteTitleInput.value = name;
   editNoteDescriptionInput.value = noteContent;
 
-  editNotePopup.classList.add("active");
+  editNotePopup.classList.add("show");
 
   function saveChanges() {
     const updatedTitle = editNoteTitleInput.value;
@@ -22,11 +22,11 @@ export function openEditNotePopup(id, name, noteContent) {
 
     editNote(id, updatedTitle, updatedDescription);
 
-    editNotePopup.classList.remove("active");
+    editNotePopup.classList.remove("show");
   }
 
   saveNoteChangesBtn.addEventListener("click", saveChanges);
   closeEditNotePopupBtn.addEventListener("click", () => {
-    editNotePopup.classList.remove("active");
+    editNotePopup.classList.remove("show");
   });
 }
