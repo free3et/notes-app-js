@@ -5,14 +5,23 @@ import quoteImg from "../assets/quote-icon.png";
 
 export function addImgToCategory(category) {
   let imageSrc = "";
-  if (category === "Task") {
-    imageSrc = `${listImg}`;
-  } else if (category === "Random Thought") {
-    imageSrc = `${brainImg}`;
-  } else if (category === "Idea") {
-    imageSrc = `${lampImg}`;
-  } else if (category === "Quote") {
-    imageSrc = `${quoteImg}`;
+
+  switch (category) {
+    case "Task":
+      imageSrc = listImg;
+      break;
+    case "Random Thought":
+      imageSrc = brainImg;
+      break;
+    case "Idea":
+      imageSrc = lampImg;
+      break;
+    case "Quote":
+      imageSrc = quoteImg;
+      break;
+    default:
+      break;
   }
+
   return imageSrc;
 }

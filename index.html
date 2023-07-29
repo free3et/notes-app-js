@@ -10,11 +10,11 @@
   <link rel="stylesheet" href="/src/style.css">
 </head>
 
-<body class="bg-light">
+<body>
   <div id="app" class="container mt-4">
     <h2 class="mb-4">Notes App</h2>
     <!-- All notes table -->
-    <table id="allNotesTable" class="table table-striped table-secondary table-hover table-borderless">
+    <table id="allNotesTable" class="table table-striped table-light table-hover table-borderless">
       <thead>
         <tr class="table-dark">
           <th></th>
@@ -29,37 +29,6 @@
       <tbody>
       </tbody>
     </table>
-
-    <!-- Add new note form -->
-    <!--     <div class="container d-flex justify-content-center">
-      <div class="card hide mt-3 border rounded-3 bg-secondary">
-        <div class="card-body">
-          <form id="newNoteForm" class="row g-3">
-            <div>
-              <label for="noteTitle" class="form-label">Note Title:</label>
-              <input type="text" id="noteTitle" class="form-control" required>
-            </div>
-            <div>
-              <label for="category" class="form-label">Category:</label>
-              <select id="category" class="form-control form-select" required>
-                <option value="Task">Task</option>
-                <option value="Random Thought">Random Thought</option>
-                <option value="Idea">Idea</option>
-                <option value="Quote">Quote</option>
-              </select>
-            </div>
-            <div>
-              <label for="noteDescription" class="form-label">Description:</label>
-              <textarea id="noteDescription" rows="4" cols="50" class="form-control" required></textarea>
-            </div>
-
-            <div>
-              <button type="submit" class="btn btn-success">Add Note</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div> -->
 
     <div class="container d-flex justify-content-center">
       <!-- Modal -->
@@ -101,8 +70,7 @@
       </div>
 
       <!-- Button to trigger the modal -->
-      <button type="button" class="btn btn-success mt-3 addNewNote" data-bs-toggle="modal"
-        data-bs-target="#addNoteModal">
+      <button type="button" class="btn btn-info mt-3 addNewNote" data-bs-toggle="modal" data-bs-target="#addNoteModal">
         Create Note
       </button>
     </div>
@@ -129,35 +97,40 @@
 
 
     <!-- Active and archived table -->
-    <table id="summaryTable" class="table mt-4 table-striped table-secondary table-hover caption-top">
+    <table id="summaryTable" class="table mt-2 mb-3 table-striped table-light table-hover caption-top">
       <caption>Summary</caption>
       <thead class="table-dark">
         <tr>
+          <th></th>
           <th>Note Category</th>
           <th>Active</th>
           <th onclick="showArchiveNotes()" class="archiveNotes"><a href="#Archived">Archived<img
-                src="./src//assets//lock-icon-grey.png" alt="${category}" class="archive-icon"><span
+                src="./src/assets/lock-icon-grey.png" alt="archived-notes" class="archive-icon"><span
                 class="badge bg-secondary">click
                 here</span></a></th>
         </tr>
       </thead>
       <tbody>
         <tr>
+          <td><img src="./src/assets/list-icon.png" alt="category-icon" class="category-icon"></td>
           <td>Task</td>
           <td class="activeTaskCount">0</td>
           <td class="archivedTaskCount">0</td>
         </tr>
         <tr>
+          <td><img src="./src/assets/brain-icon.png" alt="category-icon" class="category-icon"></td>
           <td>Random Thought</td>
           <td class="randomThoughtActiveCount">0</td>
           <td class="randomThoughtArchivedCount">0</td>
         </tr>
         <tr>
+          <td><img src="./src/assets/lamp-icon.png" alt="category-icon" class="category-icon"></td>
           <td>Idea</td>
           <td class="ideaActiveCount">0</td>
           <td class="ideaArchivedCount">0</td>
         </tr>
         <tr>
+          <td><img src="./src/assets/quote-icon.png" alt="category-icon" class="category-icon"></td>
           <td>Quote</td>
           <td class="quoteActiveCount">0</td>
           <td class="quoteArchivedCount">0</td>
@@ -165,11 +138,9 @@
       </tbody>
     </table>
 
-
-
     <div class="archivedNotesWrapper">
       <div class="container d-flex justify-content-center align-items-center">
-        <button type="button" class="btn btn-success mt-3 hideArchiveNote">
+        <button type="button" class="btn btn-info mt-3 hideArchiveNote">
           Hide archive notes
         </button>
       </div>

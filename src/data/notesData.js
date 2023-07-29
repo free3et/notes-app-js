@@ -42,7 +42,7 @@ export let notes = [
     timeOfCreation: "2023-06-15T12:00:00Z",
     category: "Task",
     noteContent:
-      "I am going to make an appointment with a tattoo artist on 04/06/2023, I postponed it from 05/16/2023",
+      "I am going to make an appointment with a tattoo artist on 4/06/2023, I postponed it from 5/06/2023",
     datesMentioned: "",
     archived: false,
   },
@@ -61,7 +61,7 @@ export let notes = [
     timeOfCreation: "2023-07-25T12:00:00Z",
     category: "Task",
     noteContent:
-      "I/’m gonna have a dentist appointment on the 3/5/2023, I moved it from 5/5/2023",
+      "I/’m gonna have a dentist appointment on the 3/05/2023, I moved it from 5/05/2023",
     datesMentioned: "",
     archived: false,
   },
