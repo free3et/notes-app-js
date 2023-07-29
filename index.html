@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes App</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+  
+  <script type="module" crossorigin src="/assets/index-edaa0683.js"></script>
+  <link rel="stylesheet" href="/assets/index-15ec8693.css">
+</head>
+
+<body>
+  <div id="app" class="container mt-4">
+    <h2 class="mb-4">Notes App</h2>
+    <!-- All notes table -->
+    <table id="allNotesTable" class="table table-striped table-light table-hover table-borderless">
+      <thead>
+        <tr class="table-dark">
+          <th></th>
+          <th>Name</th>
+          <th>Created</th>
+          <th>Category</th>
+          <th>Content</th>
+          <th>Dates</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+    <div class="container d-flex justify-content-center">
+      <!-- Modal -->
+      <div class="modal fade" id="addNoteModal" tabindex="-1" aria-labelledby="addNoteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addNoteModalLabel">Add New Note</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="newNoteForm" class="row g-3">
+                <div>
+                  <label for="noteTitle" class="form-label">Note Title:</label>
+                  <input type="text" id="noteTitle" class="form-control" required>
+                </div>
+                <div>
+                  <label for="category" class="form-label">Category:</label>
+                  <select id="category" class="form-control form-select" required>
+                    <option value="Task">Task</option>
+                    <option value="Random Thought">Random Thought</option>
+                    <option value="Idea">Idea</option>
+                    <option value="Quote">Quote</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="noteDescription" class="form-label">Description:</label>
+                  <textarea id="noteDescription" rows="4" cols="50" class="form-control" required></textarea>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-success">Add Note</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button to trigger the modal -->
+      <button type="button" class="btn btn-info mt-3 addNewNote" data-bs-toggle="modal" data-bs-target="#addNoteModal">
+        Create Note
+      </button>
+    </div>
+
+    <!-- Popup for editing note -->
+    <div id="editNotePopup" class="modal fade" tabindex="-1" aria-labelledby="editNoteModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="editNoteModalLabel">Edit Note</h4>
+          </div>
+          <div class="modal-body">
+            <input type="text" class="form-control editNoteTitle mb-3" placeholder="Title">
+            <textarea class="form-control editNoteDescription" placeholder="Description"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary saveNoteChangesBtn">Save</button>
+            <button type="button" class="btn btn-secondary closeEditNotePopupBtn"
+              data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Active and archived table -->
+    <table id="summaryTable" class="table mt-2 mb-3 table-striped table-light table-hover caption-top">
+      <caption>Summary</caption>
+      <thead class="table-dark">
+        <tr>
+          <th></th>
+          <th>Note Category</th>
+          <th>Active</th>
+          <th onclick="showArchiveNotes()" class="archiveNotes"><a href="#Archived">Archived<img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACKElEQVRoge1YPUsDQRANqEStBMXCRiRWVpbaiWhnlVIFLbWwk2ghXLRRISHJ5QgEhIBokx+gYKEWiqVt8LMTRRA/GvEDfSubcG7uYi6ZvUXYB8PeLbuz7+3M3c1eIKChoUGOVCoVTKfTQ8lkcso0zQju59CGLcvqVs2tIkC0D7YNsk+wLxc7xZjZbDbbpJpvCWzHQcxC+1GBuGhniNKgau6BWCzWAeJHHojb7RU2qYw8SwMQOKyRfNE+EYkxJQJY2riQKrA8h4X4A92OvmFcb6B9F8ej/9H3B5w/sGU5j751wzAa3eYlEol+jLt2EL3pJ/8Af9uUka9mLsb2wO7FVEIUemXz/gF/64ivykKlnRfBvxFiFCIyeZfAPlLi4uib8eIjn883YN6t4GdfFudfwELTDukTqsHPluDjSgZfp4UXHQQEvfrBnFXxuyCDr9PCUVGASj/KFtYCaoUWQOynKqBwa8WCK1jk0mPZ7Mng+wXtLmmpzcjD6Yks0i5C3tCGSQTwnfeNvE3EA4q/troFwNmFCgFcxARFBKTlfBW2RBEBVeRZBKJagBagBWgBWoByAWsKbaRuAf8eTmHNZDKduL7h93cof7vs9T3lGFIBcHjAfuqi3eN97OfsKPtXVKyZqMaQC5C90/YxpAL+PbAL87AFRTZQtwBT4YEGqTZOIWBZBXmyI2U8Hm+Bw2OfydMd6hlyuVwzHBpwfC75iPkM/zskua+h8Te+ARYPKhFUi8vqAAAAAElFTkSuQmCC" alt="archived-notes" class="archive-icon"><span
+                class="badge bg-secondary">click
+                here</span></a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAACFElEQVR4nO2awU7CQBCGOWkCZ4VEfA58BImPovFBUB9HX0G9qEcIntCLelMveBln7ZKUpS27ZWZ2LfMlf0LopjP/3y3tkm21FEVRBAGAXdQ56g71bWU+n6F2YvfHCho8QD1BOY9mTOw+WbBXvsr8godGzgQ77X05jd0vOWjq3jF5bW+JPurGOXYbu19y0NSXY7KfO3boHPuM2SsJaOIE9Row7ct4QQ1j+wnGNk7FLLafYAjN/xHbTzCNDwB76qGuUM+oH2oDHpmYmlPUJarL4bGquSPUB+cVDDk38o4acHgtaqwXal4ggEUI/DMBsmkfTI06dbjg8Ow2NnWLotpEBkopOH8bsvs/z0QiAPcHb8W8RAC2RscZNud1X2CsYpzIi5BvP2QEBDAkCmGGOt60HzLEC6bWjwagAWgAhQVh/fqfZV2fUgA+v/jk6/qUAvBCqh82qAKA+n+ZLd1KyQbg8f0mL0mzdefXAGIHUEZufN1X5aVX438bAHc/bFQEsPWPwXVTunJVR90PG+IFU+tHA9AANIDCgqCrQX0MeiHVDxtUAYCuBhu+GNr6AMrIjdfVIGc/bFQEsPWPQV0NxkAD0AA0APEAvLbISACRtsi4m6TMRqUOe+HVPox5d8faWKKwuzMrJUYSAXQh25SYGm+oPfYAbAgDSCsEY15mq2wuhH3INklOUPMIpk3NMWoEUldeUZTG8QsUXjWcpTIhlgAAAABJRU5ErkJggg==" alt="category-icon" class="category-icon"></td>
+          <td>Task</td>
+          <td class="activeTaskCount">0</td>
+          <td class="archivedTaskCount">0</td>
+        </tr>
+        <tr>
+          <td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAHIElEQVR4nO1be4hXRRRW21XzlZj4SNSNSENLLelhiVJtxZoWZZv2MlprK3pjaeGqIduD6o/IcH0kRZZBUVpqWSqYuRpaWa5R2fY2Kou2zB6WdTqHmeGe3+x9zMyduRJ04Ptjf3fmO9/MnTtzZs5smzYFGAAMQVyFaEC8hvgY8SPiDxDWgvgGsQXxNGIa4lRE+yL0BTEUPwrxCOILcDfqmKWIcxHtDnabMg1FliFqEO+mNOoXRBNiLWIF4lnEq4hGOQqSrBlxM6LDwW5nrKGwi0EMbd2+RixATEYMNOA5DHEO4h7E+zF8nyMuKaJNRoZijkS8ooncj1iGGItom5N/mOzAfZqPVYh+vtrhKu5CxE9M1F+IxYgBAXz1QTyK+JP524M43bcvEzFt5RD9h4l5EzG8AN/DEe9onX5daL9cADW+gQn4G3E3FDhLo69yECsMtxlFOX+QOaXvsqoQx/FaauQIUDYttMPrmbOfEaOCOjTTNJHNCzQax4dyNBKiyI1m+TODOHIw1DKJzUc0KVf4dtAB8QF7+8VNOoaGmuqZvtW+yWcx8ue8knsy1HUIYivTeb4v4l4QBSEUm/fxQhzAUNvxch4g2+aL9CHWq7cZlKdlcgS9AcQYxKFehBgajVCmN1+QhASdIYr0diM6ZpSnibIJSm0voo6GaC4x5ppPYr6X5CWrYWR1GWWroHRN1m1RLjF2uj+SPunMoTwP0RpJdADRN6VcDxC7PmV0qHEpYrYUoSzMGt1az33M50hXkq4g1nuy1zPK3sQc1mvPTmQjI5XHl6Gf85getyUbK1YyktQ4G58vYWV7xDxfJ5/tdRJjaTRac396WHEmIxmTUTarA9YX2QHS5+/S54uuBEtZo7pllOWfwBztGa3NKlanOGKEkyBLg2hOesOVYLMk+M6gbE8oPRh5BnE5Yi6IM0BuFKg8CSmTqg+DKHTf4UrwoSR4z7D8RVB6WqPbt9rf1DEUHwQJlCA6T2xyJdgtCTZZ1DmBOkxrKC2htSAixAug9cHpl3K05Do7jNGSuwO+kgSNDnWPY0OwRXtWLjtkj9YRb0HMZEsjBERMQeeBT4FY40cbaMjdAbskwXbH+otY41p97yCCp/shOmNQthJxlCxTyV6EbpRL6JXif6cst9NFPxFskgSZk2BC/VuZ2MqUcoNAJEe40VzyAqTPKWQ0T3VP4M09ApZJAjpp6exQ/ywm9BaD8mcgtic0dB6I/AN9PqOhdN8/P4Ev9wioY05Oc6jfj9VfaFinHaIa8QNvfEw5CtM/kc8p4OkSU+Zt+XyXrXZFUMVE3O7I0SLrG68kst5C5rsiocx0ViZu8lwpn9Fn1NVFfDeINkPrrQkER6Os35JduqQej0Jjk6Eglk5lE2Ke38GeT3HRz2N46sXeDvVTV4KUenw7G7vkgZgXlLUKr/G3/hAdj62z1a5IrmFOpjvUN1oJYupdxupt1Ycw/n0yRJsdCqRis1IQ7UKpI/rb6lefwT7myCo3D/YrAUWLtdA6E0wT3p2yY+axxpPVpPBNYeXustHOSR5mJNda1j2C1U3dl+PzCsQGreG/Qro1ZHB2gWgzRjGDfbgNYjlTPU5xvNXhJkRHYokrAYiljx+d/YaYASJanK+9cTIajVMN/T/B6p1to52T8GWp2rJu4kqAv/UGcU2GG6XZB2vl6E3SETsdtdORu3EmGsQGTdnLNto5ydEQzagbLevylWCsGkEgts/fs2e00tDewP0UN1nDRumDotpjXElWMZJBhnXozW3R3jBtl1fH/BbscgWIbbiyBa4kExnJvYZ1HoN0o7MCWvOD3vwCkTdUoTNNrJ1cSNqzIdtsUL4vRClrcj4VsZw1nuL91MNWnwalobPbuSSUnv6mDlkQV92UXS1/685+e9xJhJ3eAYiXQBy28MTNUFfC8YxkTkbZIazsCtn4WvbbbCcR5lrpviFfWpWtyUPaEaIobXNGWfrukvb3+53fgrnWauaP3j7dLKNMt/XZhk6sLkVSuisrXzAUxM1OvfG1uUSY6eT7EH93mUDc5FbWahsaU572EzeCuEA5K/SbZ3558ObvUgeITI+yB7wRezQQgZs6bP3MN3kZmwc2eCX3ZKjrefaSJodwoEJL2mkVcvPDxiCa/beB54SLcsBvix7r3UFOg2jfEuZGGxJfwTpgUhAnOayIDuAT4dwgTnJYER1AAdEB6WR5ECc5LHgHSCfN0olb6imQQel+w23ra+horVoJgjmxNBCZZB4A3RDS2WLmqGdAP3T7hFLjO+TylgaeTKWssn1GyEIYv0Tldhcv28dASP9XuiSjzY91PtNWHL9FOi6QD/7faJ+C+OzSQGl22gQdHkKPLm4CE3dlAP5OEF2wpHxBmW8fuQwFncI6wCl7nME/jPHP9M2f21DUYCawPruGNT8PttzSWiENxJbz/w74r3fAv92Z3NwRO0oUAAAAAElFTkSuQmCC" alt="category-icon" class="category-icon"></td>
+          <td>Random Thought</td>
+          <td class="randomThoughtActiveCount">0</td>
+          <td class="randomThoughtArchivedCount">0</td>
+        </tr>
+        <tr>
+          <td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAADxklEQVR4nO1aTUtWQRQ2k0zedGNkZu0CU6g2QctQqCRwlyjUJrCCFu2iddEPCPO1XR+/oI9FRd9GZQURRB9WiyDtA1elRUEfxzPMiMN5j7d775y58xbzwAPyOnOe55yZe+/MnVtTExEREREAQBDaT+GIBYgFiAWIBfhnC4B+lwnEEC2AhKe0Qh3ISeRuxzhiBcDufcgPyA0ucdIIqeQ/Gs+/XIsg5Ekl/9N4mvJWBAxcspKfgxIe8CKYztOAlfwclMeSL8GdjGCQmUBG3vayy7dw8CIES94y0M8Y+IJsTuhTj+xBlpGjyHHkV8OXyNvIYeR25JKEOM1Gi16K/X6yXdiIXYRvyO4F2rUiTzKmk6DajiBXLhCz22iGSd4y0m/MViSPvy1FHjMjnBeq71EVi4nfbbTDJG8ZqZj2ZtQfOiROMQbMbOC0gwNNbQS9UOLwDjkE+jpvB/1oLZm/1W8nTBsOE8j1ofNLhBolY5RCFWQfsi5FjFrQd/m3TJz3yLYicskMNNYA/LQ/BznW6dinEXmBiacuh4p7QnCAvuFRHFcj6hBTzYYhJu4RSe/OAH3To3f78y7JW7FrmZmgtFolvIsA9HPexkSeaZ8Qv9Fc/zbKUvGdAHqFRxc5ezzo7CUanyFhxVgYQC9vbajH2GIPOnVQ+YTZJq2Tx9gIMTXkUatMtIZ9aWUxdYuY6vGotYNo3fQhkgim/WvSZK24qXmtdqI17uqfE8lagBnSxNvLSRWbaM24+udEshbgB2lSL5Qv562BaH139c+JZC3AFGnC7uElgLFXEa1Prv4lTD0hGlvERea1uojWY19aWUydJaYOedQ6TLRO+9LKYuoAMXXHo9ZdorXfl1YWU2uQfyxT6u91HnQ6GJ3V0jq5wIzMKQ8aZ4jGqLRGboB+OWrjN3KTYPzNJqaNPqn4zgC9UXlGDL4CmVPkJuQbEvsppHi9VijQ0FaoxBVw2LKC3mpfJTHVtd8l6V0MULkzVLisRjFHrCZTQApvu01ngD4MecSYfo7szBCn0/SheAAel9oiQIPLkS8Y8+ooqzdF/16YP/ayoe4x1XcQwgGNtiDvM0lMpujLHarcQ64owrsYzOVAn91/3YwwyasY1XcOkBauBSjCo1fEAsQCxALEArggtH9nxALEAsQCZEooFuA/LMA0yakloS09+Jgu0qsXgN7D27gIzOctoD+zuUTajoXwLApM4iCd1hkwGNq/M0C/16PHZ2lwDbkotH8RYCJtyBsZkr8O1fQVmATUaIL+0Em9KaLfFChMm/8NFjnys4mF9xc/ZnbjAAAAAElFTkSuQmCC" alt="category-icon" class="category-icon"></td>
+          <td>Idea</td>
+          <td class="ideaActiveCount">0</td>
+          <td class="ideaArchivedCount">0</td>
+        </tr>
+        <tr>
+          <td><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA5UlEQVR4nO3ZsQ3CMBCF4XQsESo2oCJSJMIC6bwEJbswQboMQShoWYKSCejMIVEan2xzafJ/ktunu3elqwoAAAAAAABQee8bea7g1YHMujCzmbOA0ZdxgUxXmDlSAAVQAAVQAAVQAAVQAAVQAAVQAAXYFnD6lvDrPZVh+0DmTsm8K5nDbAXEyCBrea/IoA95q4zcSSmgM1gnnQxyVgY9ZmS2SubNYpdkXJ/rc/1/X79TMieLXZIZXv+qFLC32CeZ0fUPSubFYpdkXH/J1/+QYXof/7LKuf5WydxY7AIAAAAAAIAleAP0bcaBZClbdgAAAABJRU5ErkJggg==" alt="category-icon" class="category-icon"></td>
+          <td>Quote</td>
+          <td class="quoteActiveCount">0</td>
+          <td class="quoteArchivedCount">0</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="archivedNotesWrapper">
+      <div class="container d-flex justify-content-center align-items-center">
+        <button type="button" class="btn btn-info mt-3 hideArchiveNote">
+          Hide archive notes
+        </button>
+      </div>
+      <table id="archivedNotesTable" class="table mt-2 table-striped table-primary table-hover caption-top">
+        <caption id="Archived">Archived Notes</caption>
+        <thead class="table-secondary">
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Created</th>
+            <th>Category</th>
+            <th>Content</th>
+            <th>Dates</th>
+            <th>Unarchive</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
