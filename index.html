@@ -8,7 +8,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
   
-  <script type="module" crossorigin src="/notes-app-js/assets/index-edaa0683.js"></script>
+  <script type="module" crossorigin src="/notes-app-js/assets/index-d8715486.js"></script>
   <link rel="stylesheet" href="/notes-app-js/assets/index-15ec8693.css">
 </head>
 
@@ -87,6 +87,13 @@
           <div class="modal-body">
             <input type="text" class="form-control editNoteTitle mb-3" placeholder="Title">
             <textarea class="form-control editNoteDescription" placeholder="Description"></textarea>
+            <label for="editNoteCategory" class="form-label">Category:</label>
+            <select id="editNoteCategory" class="form-control form-select" required>
+              <option value="Task">Task</option>
+              <option value="Random Thought">Random Thought</option>
+              <option value="Idea">Idea</option>
+              <option value="Quote">Quote</option>
+            </select>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary saveNoteChangesBtn">Save</button>
